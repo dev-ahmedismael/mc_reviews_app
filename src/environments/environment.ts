@@ -1,6 +1,6 @@
 export const environment = {
   api: {
-    origin: 'https://api.musadiqa.com',
-    base: 'https://api.musadiqa.com/api',
+    origin: 'https://api.masters-clinic.com',
+    base: 'https://api.masters-clinic.com/api',
   },
 };

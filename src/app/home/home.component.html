@@ -1,0 +1,20 @@
+<div class="h-screen">
+  <nav class="flex justify-between py-2 px-5 border-b">
+    <img ngSrc="/images/logo.avif" alt="logo" width="70" height="70" />
+    <p-button label="تسجيل الدخول" icon="pi pi-sign-in"></p-button>
+  </nav>
+  <div class="py-10 px-5">
+    <h3 class="text-4xl text-center mb-10">اختر الفرع</h3>
+    <div class="px-10 grid grid-cols-3 gap-10">
+      @for (branch of branches; track branch.id) {
+      <a [routerLink]="'/branch/' + branch.id">
+        <p-button
+          size="large"
+          [label]="branch?.name"
+          styleClass="w-full"
+        ></p-button
+      ></a>
+      }
+    </div>
+  </div>
+</div>
