@@ -3,6 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { OffersReviewComponent } from './home/offers-review/offers-review.component';
 import { OffersComponent } from './home/offers/offers.component';
 import { ReviewComponent } from './home/review/review.component';
+import { provideServerRendering } from '@angular/platform-server';
 
 export const routes: Routes = [
   {
