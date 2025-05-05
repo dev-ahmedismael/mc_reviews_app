@@ -13,5 +13,5 @@ register();
   providers: [MessageService],
 })
 export class AppComponent {
-  title = 'mc-reviews-app';
+  title = 'عيادات ماسترز الطبية';
 }

@@ -1,0 +1,46 @@
+<div class="relative h-screen">
+  <swiper-container
+    #swiperRef
+    [init]="false"
+    class="mySwiper"
+    slides-per-view="1"
+    loop="true"
+    effect="fade"
+    speed="500"
+    autoplay-delay="15000"
+    autoplay-disable-on-interaction="false"
+    fade-effect-cross-fade="true"
+    allow-touch-move="true"
+    mousewheel="true"
+  >
+    @for (image of images; track $index) {
+    <swiper-slide>
+      <img
+        [src]="image.image"
+        alt="image"
+        width="600"
+        height="400"
+      /> </swiper-slide
+    >}
+  </swiper-container>
+
+  <div
+    class="absolute z-50 bottom-0 left-0 w-full bg-yellow-600 text-white py-3 flex items-center max-h-[50px] min-h-[50px]"
+  >
+    <!-- Clock Section -->
+    <div
+      class="w-40 px-4 ml-8 flex-shrink-0 max-h-[50px] min-h-[50px] bg-white"
+    >
+      <app-clock></app-clock>
+    </div>
+
+    <!-- Marquee Container -->
+    <div class="flex-1 overflow-hidden">
+      <div class="whitespace-nowrap animate-marquee">
+        <ng-container *ngFor="let item of newsItems">
+          <span class="mx-8">{{ item.post }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

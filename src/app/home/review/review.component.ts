@@ -145,7 +145,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   private handleInactivity() {
     const fullPath = this.router.url;
-    let reviewPath = fullPath.replace('/review', '/offers');
+    let reviewPath = fullPath.replace('/review', '/categories');
 
     this.router.navigateByUrl(reviewPath);
   }
