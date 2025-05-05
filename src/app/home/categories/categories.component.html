@@ -2,7 +2,7 @@
   <nav class="border-b shadow text-center text-xl py-5">
     اختر القسم الطبي لمشاهدة العروض
   </nav>
-  <div class="p-10 grid grid-cols-1 gap-10 cats">
+  <div class="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 cats">
     @for (item of categories; track $index) {
     <a [routerLink]="item.id">
       <button class="bg-primary text-white py-4 px-5 w-full rounded">
