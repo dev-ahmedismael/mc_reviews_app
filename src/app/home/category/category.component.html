@@ -1,7 +1,9 @@
 <!-- Image Grid -->
 <div>
   <nav class="p-7 flex justify-end text-slate-800 text-xl border-b shadow">
-    <a [routerLink]="categoriesPath"> <p>عودة إلى الأقسام الطبية</p></a>
+    <a [routerLink]="categoriesPath">
+      <p class="text-primary">عودة إلى الأقسام الطبية</p></a
+    >
   </nav>
   <div class="p-10 grid grid-cols-2 gap-5">
     @for (item of offers;track $index; let i = $index) {

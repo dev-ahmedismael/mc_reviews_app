@@ -2,7 +2,7 @@
   <nav class="border-b shadow text-center text-xl py-5">
     اختر القسم الطبي لمشاهدة العروض
   </nav>
-  <div class="p-10 grid grid-cols-2 gap-10">
+  <div class="p-10 grid grid-cols-1 gap-10 cats">
     @for (item of categories; track $index) {
     <a [routerLink]="item.id">
       <button class="bg-primary text-white py-4 px-5 w-full rounded">
@@ -13,11 +13,11 @@
   </div>
 </section>
 <a [routerLink]="reviewPath">
-  <div class="absolute z-50 bottom-10 left-10">
+  <div class="fixed z-50 bottom-10 left-10">
     <button class="bg-black text-white py-5 px-8 rounded">
       <div class="flex items-center gap-5">
         <p>اضغط هنا لبدء التقييم</p>
-        <i class="pi pi-pen-to-square text-amber-500"></i>
+        <i class="pi pi-pen-to-square text-yellow-600"></i>
       </div>
     </button></div
 ></a>
