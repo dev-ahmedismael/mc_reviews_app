@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-category',
-  imports: [NgOptimizedImage, CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
 })
 export class CategoryComponent implements OnInit {
   offers: any = [];
+  currentOffer: any = [];
 
   constructor(
     private apiService: ApiService,
@@ -23,6 +24,10 @@ export class CategoryComponent implements OnInit {
   currentIndex: number = 0;
   categoriesPath: string = '';
   loading: boolean = true;
+
+  setCurrentOffer(id: string | number) {
+    this.currentOffer = this.offers.find((offer: any) => offer.id == id);
+  }
 
   openLightbox(index: number) {
     this.currentIndex = index;
@@ -66,15 +71,17 @@ export class CategoryComponent implements OnInit {
     const fullUrl = this.router.url;
     this.categoriesPath = fullUrl.split('/').slice(0, -1).join('/');
 
-    this.apiService.index('offers').subscribe({
+    this.apiService.index('offers/all').subscribe({
       next: (res: any) => {
         this.loading = false;
 
         let cat_id = this.route.snapshot.paramMap.get('id');
 
-        let offer = res.data.find((offer: any) => offer.cat_id == cat_id);
+        let offers = res.data.filter((offer: any) => offer.cat_id == cat_id);
 
-        this.offers = offer.images;
+        this.offers = offers;
+
+        this.setCurrentOffer(offers[0].id);
       },
     });
   }

@@ -5,15 +5,29 @@
       <p class="text-primary">عودة إلى الأقسام الطبية</p></a
     >
   </nav>
-  <div class="p-10 grid grid-cols-2 gap-5">
-    @for (item of offers;track $index; let i = $index) {
-    <img
-      [src]="item"
-      alt="offer"
-      class="w-full h-[300px] object-fill rounded-lg cursor-pointer"
-      (click)="openLightbox(i)"
-    />
-    }
+
+  <div class="flex min-h-screen">
+    <div class="border-l p-5 flex flex-col gap-5">
+      @for (offer of offers; track offer.id) {
+      <div
+        class="cursor-pointer"
+        (click)="setCurrentOffer(offer.id)"
+        [ngClass]="currentOffer.id == offer.id ? 'text-primary' : ''"
+      >
+        <p>{{ offer.title }}</p>
+      </div>
+      }
+    </div>
+    <div class="p-10 grid grid-cols-2 gap-5">
+      @for (item of currentOffer.images;track $index; let i = $index) {
+      <img
+        [src]="item"
+        alt="offer"
+        class="w-full h-[300px] object-fill rounded-lg cursor-pointer"
+        (click)="openLightbox(i)"
+      />
+      }
+    </div>
   </div>
 
   <div class="p-10 text-xl text-center" *ngIf="offers.length === 0 && !loading">
@@ -29,7 +43,7 @@
 >
   <!-- Fullscreen image -->
   <img
-    [src]="offers[currentIndex]"
+    [src]="currentOffer.images[currentIndex]"
     class="w-screen h-screen object-fill"
     (click)="closeLightbox()"
   />
