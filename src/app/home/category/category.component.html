@@ -24,17 +24,19 @@
       </div>
       }
     </div>
-    <div
-      class="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full"
-    >
-      @for (item of currentOffer.images;track $index; let i = $index) {
-      <img
-        [src]="item"
-        alt="offer"
-        class="w-full h-[300px] object-fill rounded-lg cursor-pointer"
-        (click)="openLightbox(i)"
-      />
-      }
+    <div>
+      <div
+        class="p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full"
+      >
+        @for (item of currentOffer.images;track $index; let i = $index) {
+        <img
+          [src]="item"
+          alt="offer"
+          class="w-full h-[300px] object-fill rounded-lg cursor-pointer"
+          (click)="openLightbox(i)"
+        />
+        }
+      </div>
     </div>
   </div>
 
