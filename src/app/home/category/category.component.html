@@ -6,7 +6,13 @@
     >
   </nav>
 
-  <div class="flex min-h-screen">
+  <div
+    class="flex justify-center items-center min-h-screen"
+    *ngIf="offers.length == 0 && !loading"
+  >
+    <p>عفواً، لا توجد عروض في الوقت الحالي.</p>
+  </div>
+  <div class="flex min-h-screen" *ngIf="offers.length > 0">
     <div class="border-l p-5 flex flex-col gap-5">
       @for (offer of offers; track offer.id) {
       <div
@@ -18,7 +24,7 @@
       </div>
       }
     </div>
-    <div class="p-10 grid grid-cols-2 gap-5">
+    <div class="p-10 grid grid-cols-2 gap-5 w-full">
       @for (item of currentOffer.images;track $index; let i = $index) {
       <img
         [src]="item"
