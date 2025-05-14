@@ -51,21 +51,9 @@ export class TvComponent implements OnInit, OnDestroy {
           }))
         );
 
-        // Wait for all images to preload before starting carousel
-        const preloadPromises = rawImages.map((img: any) => {
-          return new Promise((resolve) => {
-            const tempImg = new Image();
-            tempImg.onload = resolve;
-            tempImg.onerror = resolve;
-            tempImg.src = img.image;
-          });
-        });
+        this.images = rawImages;
 
-        Promise.all(preloadPromises).then(() => {
-          this.images = rawImages;
-
-          this.startCarousel();
-        });
+        this.startCarousel();
       },
     });
   }
