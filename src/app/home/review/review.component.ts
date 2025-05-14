@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Toast } from 'primeng/toast';
+import { Select, SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-review',
@@ -24,6 +25,7 @@ import { Toast } from 'primeng/toast';
     TextareaModule,
     ButtonModule,
     Toast,
+    SelectModule,
   ],
   templateUrl: './review.component.html',
   styleUrl: './review.component.scss',
@@ -31,8 +33,9 @@ import { Toast } from 'primeng/toast';
 export class ReviewComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   reviewOptions: any = [];
+  employees: any = [];
   private inactivityTimeout: any;
-  private readonly timeoutDuration = 10000;
+  private readonly timeoutDuration = 20000;
 
   constructor(
     private fb: FormBuilder,
@@ -67,9 +70,14 @@ export class ReviewComponent implements OnInit, OnDestroy {
       this.apiService.store('reviews', data).subscribe({
         next: (res: any) => {
           this.messageService.add({
+            key: 'main',
             severity: 'success',
             summary: res.message,
           });
+
+          setTimeout(() => {
+            this.handleInactivity();
+          }, 3000);
         },
         error: (err: HttpErrorResponse) => {
           this.messageService.add({
@@ -82,6 +90,15 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const urlSegments = this.router.url.split('/');
+    const branchId = urlSegments[2];
+
+    this.apiService.index(`employees/branch/${branchId}`).subscribe({
+      next: (res: any) => {
+        this.employees = res.data;
+      },
+    });
+
     this.reviewOptions = [
       {
         value: 4,
@@ -143,7 +160,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
     }, this.timeoutDuration);
   };
 
-  private handleInactivity() {
+  handleInactivity() {
     const fullPath = this.router.url;
     let reviewPath = fullPath.replace('/review', '/categories');
 

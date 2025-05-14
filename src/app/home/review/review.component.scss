@@ -1,0 +1,9 @@
+:root {
+  --toast-z-index: 9999; /* optional, ensure it's above everything */
+}
+
+.p-toast.p-toast-top-center {
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
