@@ -63,10 +63,6 @@ export class TvComponent implements OnInit, AfterViewInit {
             category_id: offer.category_id,
           }))
         );
-
-        setTimeout(() => {
-          this.initializeCarousel();
-        }, 2000);
       },
     });
 
@@ -83,7 +79,9 @@ export class TvComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.initializeCarousel();
+  }
 
   initializeCarousel() {
     if (isPlatformBrowser(this.platformId)) {
