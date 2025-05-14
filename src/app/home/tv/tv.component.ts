@@ -10,7 +10,7 @@ import { ApiService } from '../../../services/api.service';
 import 'swiper/element/bundle';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { ClockComponent } from '../clock/clock.component';
 
 @Component({
@@ -63,6 +63,10 @@ export class TvComponent implements OnInit, AfterViewInit {
             category_id: offer.category_id,
           }))
         );
+
+        setTimeout(() => {
+          this.initializeCarousel();
+        }, 2000);
       },
     });
 
@@ -79,7 +83,9 @@ export class TvComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void {}
+
+  initializeCarousel() {
     if (isPlatformBrowser(this.platformId)) {
       const swiperEl = this.swiperRef.nativeElement as HTMLElement & {
         initialize: () => void;
