@@ -3,8 +3,9 @@
   height: calc(100vh - 50px);
   position: relative;
   overflow: hidden;
+
   img {
-    object-fit: fill;
+    object-fit: cover; // 'fill' may distort, 'cover' works better
     width: 100%;
     height: 100%;
   }

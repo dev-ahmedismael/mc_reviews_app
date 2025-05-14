@@ -66,13 +66,29 @@ export class TvComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.apiService.index('offers').subscribe({
       next: (res: any) => {
-        this.images = res.data.flatMap((offer: any) =>
+        const rawImages = res.data.flatMap((offer: any) =>
           offer.images.map((image: string) => ({
             image,
             category_id: offer.category_id,
           }))
         );
-        this.startCarousel();
+
+        // Wait for all images to preload before starting carousel
+        const preloadPromises = rawImages.map((img: any) => {
+          return new Promise((resolve) => {
+            const tempImg = new Image();
+            tempImg.onload = resolve;
+            tempImg.onerror = resolve;
+            tempImg.src = img.image;
+          });
+        });
+
+        Promise.all(preloadPromises).then(() => {
+          this.images = rawImages;
+          console.log('s');
+
+          this.startCarousel();
+        });
       },
     });
 
