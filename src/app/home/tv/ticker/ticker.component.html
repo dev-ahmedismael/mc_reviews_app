@@ -1,12 +1,9 @@
 <div #marquee class="ticker-container">
   <div class="ticker-content">
     <div class="ticker-track animate-marquee">
-      <div
-        *ngFor="let item of newsItems"
-        class="ticker-item will-change-transform inline-block"
-      >
-        {{ item.post }}
-      </div>
+      <span *ngFor="let item of newsItems" class="ticker-item">{{
+        item.post
+      }}</span>
     </div>
   </div>
 </div>
