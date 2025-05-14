@@ -9,14 +9,14 @@ import {
 } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import 'swiper/element/bundle';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router } from '@angular/router';
 import { ClockComponent } from '../clock/clock.component';
 import { TickerComponent } from './ticker/ticker.component';
 
 @Component({
   selector: 'app-tv',
-  imports: [CommonModule, ClockComponent, TickerComponent],
+  imports: [CommonModule, ClockComponent, TickerComponent, NgOptimizedImage],
   templateUrl: './tv.component.html',
   styleUrl: './tv.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

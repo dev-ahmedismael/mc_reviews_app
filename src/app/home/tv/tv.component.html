@@ -6,7 +6,14 @@
       [class.opacity-100]="i === currentIndex"
       [class.opacity-0]="i !== currentIndex"
     >
-      <img [src]="image.image" alt="slide" class="w-full h-full object-fill" />
+      <img
+        [ngSrc]="image.image"
+        alt="slide"
+        width="600"
+        height="400"
+        priority
+        class="w-full h-full object-fill"
+      />
     </div>
   </div>
 
