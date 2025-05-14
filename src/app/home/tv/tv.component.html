@@ -1,13 +1,12 @@
 <div class="relative h-screen max-h-screen">
   <div class="mySwiper">
     <div
-      class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-      *ngFor="let image of images; let i = index"
-      [class.opacity-100]="i === currentIndex"
-      [class.opacity-0]="i !== currentIndex"
+      class="absolute inset-0 transition-opacity duration-1000 ease-in-out h-full w-full"
+      [class.opacity-100]="!!images[currentIndex]"
+      [class.opacity-0]="!images[currentIndex]"
     >
       <img
-        [ngSrc]="image.image"
+        [ngSrc]="images[currentIndex]?.image"
         alt="slide"
         width="600"
         height="400"

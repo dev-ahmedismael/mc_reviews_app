@@ -14,7 +14,7 @@ export class ClockComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = interval(1000).subscribe(() => {
       const now = new Date();
-      this.time = now.toLocaleTimeString(); // e.g. "12:34:56 PM"
+      this.time = now.toLocaleTimeString('en-US', { hour12: true });
     });
   }
 
