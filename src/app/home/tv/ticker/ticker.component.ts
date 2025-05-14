@@ -14,7 +14,6 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './ticker.component.html',
   styleUrl: './ticker.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TickerComponent implements OnInit {
   newsItems: { post: string; branch_name: string }[] = [];
@@ -29,8 +28,6 @@ export class TickerComponent implements OnInit {
           post: item.post,
           branch_name: item.branch_name,
         }));
-
-        this.cdr.detectChanges();
 
         requestAnimationFrame(() => this.setMarqueeSpeed());
       },
