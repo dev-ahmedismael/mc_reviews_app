@@ -34,13 +34,7 @@ export class TvComponent implements OnInit, OnDestroy {
 
   startCarousel() {
     this.intervalId = setInterval(() => {
-      const nextIndex = (this.currentIndex + 1) % this.images.length;
-      const nextImage = new Image();
-      nextImage.src = this.images[nextIndex].image;
-
-      nextImage.decode().then(() => {
-        this.currentIndex = nextIndex;
-      });
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
     }, 15000);
   }
 
