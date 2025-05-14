@@ -80,8 +80,6 @@ export class TvComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.init = true;
-    }, 3000);
+    this.init = true;
   }
 }
