@@ -1,6 +1,8 @@
 .mySwiper {
   width: 100vw;
   height: calc(100vh - 50px);
+  position: relative;
+  overflow: hidden;
   img {
     object-fit: fill;
     width: 100%;

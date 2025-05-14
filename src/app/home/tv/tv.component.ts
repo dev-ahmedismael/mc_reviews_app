@@ -3,6 +3,7 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -20,12 +21,14 @@ import { ClockComponent } from '../clock/clock.component';
   styleUrl: './tv.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class TvComponent implements OnInit, AfterViewInit {
+export class TvComponent implements OnInit, AfterViewInit, OnDestroy {
   images: any = [];
   posts: any = [];
   init: boolean = false;
   newsItems: { post: string; branch_name: string }[] = [];
   reviewPath = '';
+  currentIndex = 0;
+  private intervalId: any;
 
   constructor(
     private apiService: ApiService,
@@ -51,6 +54,12 @@ export class TvComponent implements OnInit, AfterViewInit {
     trackEl.style.animationDuration = `${duration}s`;
   }
 
+  startCarousel() {
+    this.intervalId = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    }, 5000);
+  }
+
   ngOnInit(): void {
     const fullPath = this.router.url;
     this.reviewPath = fullPath.replace('/offers', '/review');
@@ -63,9 +72,7 @@ export class TvComponent implements OnInit, AfterViewInit {
             category_id: offer.category_id,
           }))
         );
-        setTimeout(() => {
-          this.init = true;
-        }, 2000);
+        this.startCarousel();
       },
     });
 
@@ -83,4 +90,8 @@ export class TvComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {}
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
+  }
 }
