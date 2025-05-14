@@ -23,6 +23,6 @@ export class ClockComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe(); // Prevent memory leak
+    this.subscription.unsubscribe();
   }
 }
