@@ -14,3 +14,34 @@ textarea,
 select {
   min-width: 300px;
 }
+
+@keyframes marquee {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.ticker-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+}
+
+.ticker-content {
+  display: flex;
+  align-items: center;
+}
+
+.ticker-track {
+  display: flex;
+  animation: marquee 15s linear infinite forwards;
+}
+
+.ticker-item {
+  margin-right: 30px;
+  white-space: nowrap;
+}

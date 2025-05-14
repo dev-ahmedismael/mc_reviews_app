@@ -34,6 +34,22 @@ export class TvComponent implements OnInit, AfterViewInit {
   ) {}
 
   @ViewChild('swiperRef', { static: false }) swiperRef!: ElementRef;
+  @ViewChild('marquee') marquee!: ElementRef;
+
+  setMarqueeSpeed(): void {
+    const marqueeEl = this.marquee.nativeElement;
+    const trackEl = marqueeEl.querySelector('.ticker-track') as HTMLElement;
+
+    // Get content width dynamically
+    const contentWidth = trackEl.scrollWidth;
+    const containerWidth = marqueeEl.clientWidth;
+
+    // Calculate speed: Adjust duration based on content size
+    const duration = (contentWidth / containerWidth) * 15;
+
+    // Apply speed to animation
+    trackEl.style.animationDuration = `${duration}s`;
+  }
 
   ngOnInit(): void {
     const fullPath = this.router.url;
@@ -56,6 +72,9 @@ export class TvComponent implements OnInit, AfterViewInit {
           post: item.post,
           branch_name: item.branch_name,
         }));
+        setTimeout(() => {
+          this.setMarqueeSpeed();
+        }, 2000);
       },
     });
   }

@@ -36,10 +36,14 @@
 
     <!-- Marquee Container -->
     <div class="flex-1 overflow-hidden">
-      <div class="whitespace-nowrap animate-marquee">
-        <ng-container *ngFor="let item of newsItems">
-          <span class="mx-8">{{ item.post }}</span>
-        </ng-container>
+      <div #marquee class="ticker-container">
+        <div class="ticker-content" id="marquee">
+          <div class="ticker-track">
+            <span *ngFor="let item of newsItems" class="ticker-item">{{
+              item.post
+            }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
