@@ -22,15 +22,7 @@
 
     <!-- Marquee Container -->
     <div class="flex-1 overflow-hidden">
-      <div #marquee class="ticker-container">
-        <div class="ticker-content" id="marquee">
-          <div class="ticker-track">
-            <span *ngFor="let item of newsItems" class="ticker-item">{{
-              item.post
-            }}</span>
-          </div>
-        </div>
-      </div>
+      <app-ticker></app-ticker>
     </div>
   </div>
 </div>

@@ -1,0 +1,31 @@
+@keyframes marquee {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block; /* Ensures the elements align horizontally */
+  white-space: nowrap; /* Prevents line breaks */
+  animation: marquee 20s linear infinite; /* Apply the marquee animation */
+  will-change: transform; /* Optimizes performance */
+}
+
+.ticker-container {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.ticker-content {
+  display: flex;
+  white-space: nowrap;
+}
+
+.ticker-track {
+  display: inline-block;
+  white-space: nowrap;
+}

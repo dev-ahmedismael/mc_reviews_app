@@ -9,55 +9,33 @@ import {
 } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import 'swiper/element/bundle';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ClockComponent } from '../clock/clock.component';
+import { TickerComponent } from './ticker/ticker.component';
 
 @Component({
   selector: 'app-tv',
-  imports: [CommonModule, ClockComponent],
+  imports: [CommonModule, ClockComponent, TickerComponent],
   templateUrl: './tv.component.html',
   styleUrl: './tv.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class TvComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TvComponent implements OnInit, OnDestroy {
   images: any = [];
   posts: any = [];
-  init: boolean = false;
-  newsItems: { post: string; branch_name: string }[] = [];
   reviewPath = '';
   currentIndex = 0;
   private intervalId: any;
 
-  constructor(
-    private apiService: ApiService,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router
-  ) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
   @ViewChild('swiperRef', { static: false }) swiperRef!: ElementRef;
-  @ViewChild('marquee') marquee!: ElementRef;
-
-  setMarqueeSpeed(): void {
-    const marqueeEl = this.marquee.nativeElement;
-    const trackEl = marqueeEl.querySelector('.ticker-track') as HTMLElement;
-
-    // Get content width dynamically
-    const contentWidth = trackEl.scrollWidth;
-    const containerWidth = marqueeEl.clientWidth;
-
-    // Calculate speed: Adjust duration based on content size
-    const duration = (contentWidth / containerWidth) * 20;
-
-    // Apply speed to animation
-    trackEl.style.animationDuration = `${duration}s`;
-  }
 
   startCarousel() {
     this.intervalId = setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.images.length;
-    }, 5000);
+    }, 15000);
   }
 
   ngOnInit(): void {
@@ -85,27 +63,12 @@ export class TvComponent implements OnInit, AfterViewInit, OnDestroy {
 
         Promise.all(preloadPromises).then(() => {
           this.images = rawImages;
-          console.log('s');
 
           this.startCarousel();
         });
       },
     });
-
-    this.apiService.index('posts').subscribe({
-      next: (res: any) => {
-        this.newsItems = res.data.map((item: any) => ({
-          post: item.post,
-          branch_name: item.branch_name,
-        }));
-        setTimeout(() => {
-          this.setMarqueeSpeed();
-        }, 2000);
-      },
-    });
   }
-
-  ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
     clearInterval(this.intervalId);
