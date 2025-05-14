@@ -80,25 +80,8 @@ export class TvComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initializeCarousel();
-  }
-
-  initializeCarousel() {
-    if (isPlatformBrowser(this.platformId)) {
-      const swiperEl = this.swiperRef.nativeElement as HTMLElement & {
-        initialize: () => void;
-      };
-
-      customElements.whenDefined('swiper-container').then(() => {
-        Object.assign(swiperEl, {
-          on: {
-            init() {
-              console.log('Swiper initialized!');
-            },
-          },
-        });
-        swiperEl.initialize();
-      });
-    }
+    setTimeout(() => {
+      this.init = true;
+    }, 3000);
   }
 }

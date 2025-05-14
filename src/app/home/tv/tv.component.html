@@ -1,16 +1,13 @@
 <div class="relative h-screen max-h-screen">
+  @if (init) {
   <swiper-container
-    #swiperRef
     class="mySwiper"
     slides-per-view="1"
     loop="true"
-    effect="fade"
     speed="500"
     autoplay="true"
-    autoplay-disable-on-interaction="false"
+    effect="fade"
     fade-effect-cross-fade="true"
-    allow-touch-move="true"
-    mousewheel="true"
   >
     @for (image of images; track $index) {
     <swiper-slide>
@@ -22,7 +19,7 @@
       /> </swiper-slide
     >}
   </swiper-container>
-
+  }
   <div
     class="absolute z-50 bottom-0 left-0 w-full bg-yellow-600 text-white py-3 flex items-center max-h-[50px] min-h-[50px]"
   >
