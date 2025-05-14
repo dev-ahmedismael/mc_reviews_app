@@ -63,6 +63,9 @@ export class TvComponent implements OnInit, AfterViewInit {
             category_id: offer.category_id,
           }))
         );
+        setTimeout(() => {
+          this.init = true;
+        }, 2000);
       },
     });
 
@@ -79,7 +82,5 @@ export class TvComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.init = true;
-  }
+  ngAfterViewInit(): void {}
 }
