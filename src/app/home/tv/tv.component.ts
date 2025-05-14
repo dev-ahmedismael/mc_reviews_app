@@ -45,7 +45,7 @@ export class TvComponent implements OnInit, AfterViewInit {
     const containerWidth = marqueeEl.clientWidth;
 
     // Calculate speed: Adjust duration based on content size
-    const duration = (contentWidth / containerWidth) * 15;
+    const duration = (contentWidth / containerWidth) * 20;
 
     // Apply speed to animation
     trackEl.style.animationDuration = `${duration}s`;
