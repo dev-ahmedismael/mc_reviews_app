@@ -36,6 +36,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
   employees: any = [];
   private inactivityTimeout: any;
   private readonly timeoutDuration = 20000;
+  resMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -67,13 +68,11 @@ export class ReviewComponent implements OnInit, OnDestroy {
       let data = this.form.value;
       data.branch_id = branch_id;
 
+      this.form.reset();
+
       this.apiService.store('reviews', data).subscribe({
         next: (res: any) => {
-          this.messageService.add({
-            key: 'main',
-            severity: 'success',
-            summary: res.message,
-          });
+          this.resMessage = res.message;
 
           setTimeout(() => {
             this.handleInactivity();
@@ -134,6 +133,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
       this.removeActivityListeners();
       clearTimeout(this.inactivityTimeout);
     }
+
+    this.resMessage = null;
   }
   private registerActivityListeners() {
     if (typeof window !== 'undefined') {

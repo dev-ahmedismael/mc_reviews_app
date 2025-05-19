@@ -82,3 +82,10 @@
     </form>
   </div>
 </div>
+
+<div
+  *ngIf="resMessage"
+  class="bg-white text-xl absolute z-50 top-0 left-0 w-full h-screen flex justify-center items-center"
+>
+  <p>{{ resMessage }}</p>
+</div>
