@@ -95,10 +95,13 @@ export class ReviewComponent implements OnInit, OnDestroy {
     this.apiService.index(`employees/branch/${branchId}`).subscribe({
       next: (res: any) => {
         this.employees = res.data.map((employee: any) => {
-          const nameParts = employee.name.trim().split(' ');
+          // Split by any whitespace, ignoring extra spaces
+          const nameParts = employee.name.trim().split(/\s+/);
+
           const firstName = nameParts[0] || '';
           const lastName =
             nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
+
           return {
             ...employee,
             firstName,
