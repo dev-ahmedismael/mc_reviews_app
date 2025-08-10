@@ -30,7 +30,7 @@ import { Select, SelectModule } from 'primeng/select';
   templateUrl: './review.component.html',
   styleUrl: './review.component.scss',
 })
-export class ReviewComponent implements OnInit, OnDestroy {
+export class ReviewComponent implements OnDestroy, OnInit {
   form!: FormGroup;
   reviewOptions: any = [];
   employees: any = [];
@@ -47,6 +47,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       employee_code: ['', Validators.required],
       value: ['', Validators.required],
+      phone: ['', Validators.required],
       notes: [''],
     });
   }
@@ -88,29 +89,33 @@ export class ReviewComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
+  selectedPosition = null;
+
+  fetchData(): void {
     const urlSegments = this.router.url.split('/');
     const branchId = urlSegments[2];
 
-    this.apiService.index(`employees/branch/${branchId}`).subscribe({
-      next: (res: any) => {
-        this.employees = res.data.map((employee: any) => {
-          // Split by any whitespace, ignoring extra spaces
-          const nameParts = employee.name.trim().split(/\s+/);
+    this.apiService
+      .index(`employees/branch/${branchId}/${this.selectedPosition}`)
+      .subscribe({
+        next: (res: any) => {
+          this.employees = res.data.map((employee: any) => {
+            // Split by any whitespace, ignoring extra spaces
+            const nameParts = employee.name.trim().split(/\s+/);
 
-          const firstName = nameParts[0] || '';
-          const lastName =
-            nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
+            const firstName = nameParts[0] || '';
+            const lastName =
+              nameParts.length > 1 ? nameParts[nameParts.length - 1] : '';
 
-          return {
-            ...employee,
-            firstName,
-            lastName,
-            fullName: `${firstName} ${lastName}`.trim(),
-          };
-        });
-      },
-    });
+            return {
+              ...employee,
+              firstName,
+              lastName,
+              fullName: `${firstName} ${lastName}`.trim(),
+            };
+          });
+        },
+      });
 
     this.reviewOptions = [
       {
@@ -142,6 +147,21 @@ export class ReviewComponent implements OnInit, OnDestroy {
     this.resetTimer();
     this.registerActivityListeners();
   }
+  positions: any = [];
+
+  selectPosition(id: any) {
+    this.selectedPosition = id;
+
+    this.fetchData();
+  }
+  ngOnInit(): void {
+    this.apiService.index('positions/all').subscribe({
+      next: (res: any) => {
+        this.positions = res.data;
+      },
+    });
+  }
+
   ngOnDestroy(): void {
     if (typeof window !== 'undefined') {
       this.removeActivityListeners();
